@@ -22,11 +22,17 @@ func main() {
 	config.AllowMethods = []string{"GET", "POST", "OPTIONS"}
 	r.Use(cors.New(config))
 
+	// Test
+	r.GET("/", HelloFromApp)
+
 	// Define an API route to handle the database query and Excel file generation.
 	r.POST("/generate-excel", GenerateExcel)
 
 	// Run the server on port 8080.
 	r.Run(":8080")
+}
+func HelloFromApp(c *gin.Context) {
+	c.JSON(http.StatusAccepted, gin.H{"Test": "Hello From App"})
 }
 
 func GenerateExcel(c *gin.Context) {
