@@ -29,7 +29,11 @@ func main() {
 	r.POST("/generate-excel", GenerateExcel)
 
 	// Run the server on port 8080.
-	r.Run(":8080")
+	port := os.Getenv("PORT") // Get the port from the environment variable
+	if port == "" {
+		port = "8080" // Default to 8080 if PORT environment variable is not set
+	}
+	r.Run(":" + port)
 }
 func HelloFromApp(c *gin.Context) {
 	c.JSON(http.StatusAccepted, gin.H{"Test": "Hello From App"})
